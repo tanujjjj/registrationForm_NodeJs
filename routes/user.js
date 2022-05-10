@@ -24,12 +24,13 @@ const userRoutes = (app, fs) => {
       body.password = hashedPassword
 
 
-      if (data.find(record => record.username === body.username)) {
+      if (data.find(record => record["username"] == body["username"])) {
+        console.log(body.username)
         result = false
         res.status(400).send(`{
-    "result": false,
-    "error": "username already exists"
-}`);
+          "result": false,
+          "error": "username already exists"
+      }`);
       } else {
         data.push(body)
         fs.writeFile(dataPath, JSON.stringify(data), function (err) {
